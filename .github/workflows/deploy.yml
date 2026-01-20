@@ -1,0 +1,56 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build (if package.json / build script exists)
+        shell: bash
+        run: |
+          # If there's a package.json, install deps and run build if a build script exists
+          if [ -f package.json ]; then
+            npm ci
+            if npm run | grep -q " build"; then
+              npm run build
+            fi
+          fi
+
+      - name: Determine publish directory
+        id: publishdir
+        run: |
+          # detect common output directories
+          if [ -d ./out ]; then
+            echo "publish_dir=out" >> $GITHUB_OUTPUT
+          elif [ -d ./dist ]; then
+            echo "publish_dir=dist" >> $GITHUB_OUTPUT
+          elif [ -d ./build ]; then
+            echo "publish_dir=build" >> $GITHUB_OUTPUT
+          elif [ -d ./public ]; then
+            echo "publish_dir=public" >> $GITHUB_OUTPUT
+          else
+            # default to repository root (index.html at repo root)
+            echo "publish_dir=." >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ steps.publishdir.outputs.publish_dir }}
+          publish_branch: gh-pages
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
