@@ -1,0 +1,11 @@
+```json
+[
+  {
+    "repo": "example-repo",
+    "short": "One-line curated summary to display on the card.",
+    "description": "Longer curated description that will replace the repo description when present.",
+    "tags": ["Tailwind", "JS", "Demo"],
+    "homepage": "https://example.com"
+  }
+]
+```
