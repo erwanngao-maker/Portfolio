@@ -40,7 +40,7 @@ resumeLink.href = "./assets/img/CV_260126.pdf"; // replace with your resume url 
 emailLink.href = "mailto:erwann.gao@gmail.com";
 emailLink.textContent = "erwann.gao@gmail.com";
 socialGithub.href = `https://github.com/${DEFAULT_USERNAME}`;
-socialLinkedIn.href = "#"; // fill if you have one
+socialLinkedIn.href = "https://www.linkedin.com/in/erwann-gao"; // fill if you have one
 
 // Theme (dark mode) handling
 function applyTheme(theme) {
