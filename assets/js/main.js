@@ -178,10 +178,10 @@ function renderGrid(list) {
               : ""
           }</div>
         </div>
-        <div class="text-right flex-shrink-0">
-          <div class="text-sm text-slate-500 dark:text-slate-400">★ ${
-            r.stargazers_count || 0
-          }</div>
+        <div class="text-right flex-shrink-0 flex flex-col justify-between h-full">
+          <div class="text-sm text-slate-500 dark:text-slate-400">
+            ★ ${r.stargazers_count || 0}
+          </div>
           <div class="flex flex-col gap-2">
             <a class="inline-block text-xs px-2 py-1 rounded-md border" href="${
               r.homepage || r.html_url
