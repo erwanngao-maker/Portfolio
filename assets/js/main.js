@@ -157,7 +157,7 @@ function renderGrid(list) {
     card.className =
       "rounded-lg border p-4 bg-white dark:bg-slate-800 shadow-sm";
     card.innerHTML = `
-      <div class="flex items-start justify-between gap-3">
+      <div class="text-right flex-shrink-0 flex flex-col justify-between h-full">
         <div>
           <h3 class="font-semibold text-lg"><a href="#" data-repo="${
             r.full_name
@@ -182,7 +182,7 @@ function renderGrid(list) {
           <div class="text-sm text-slate-500 dark:text-slate-400">★ ${
             r.stargazers_count || 0
           }</div>
-          <div class="mt-4 flex flex-col gap-2">
+          <div class="flex flex-col gap-2">
             <a class="inline-block text-xs px-2 py-1 rounded-md border" href="${
               r.homepage || r.html_url
             }" target="_blank">Open</a>
