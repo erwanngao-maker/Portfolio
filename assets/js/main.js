@@ -170,7 +170,7 @@ function renderGrid(list) {
         : "";
 
     card.innerHTML = `
-      <div class="flex-1">
+      <div class="flex-1 min-h-0 overflow-hidden">
         <h3 class="font-semibold text-lg">
           <a href="#" data-repo="${
             r.full_name
@@ -179,9 +179,9 @@ function renderGrid(list) {
         <p class="mt-1 text-sm text-slate-600 dark:text-slate-300 card-clamp">${
           r.description || (r._curated && r._curated.short) || "—"
         }</p>
-        <div class="mt-3 flex flex-wrap gap-2 text-xs">${tagsHtml}</div>
+        <div class="mt-3 flex flex-wrap gap-2 text-xs overflow-hidden max-h-14">${tagsHtml}</div>
       </div>
-      <div class="mt-4 flex items-center justify-between">
+      <div class="mt-4 flex items-center justify-between flex-shrink-0">
         <div class="text-sm text-slate-500 dark:text-slate-400">
           ★ ${r.stargazers_count || 0}
         </div>
