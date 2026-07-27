@@ -155,41 +155,43 @@ function renderGrid(list) {
   for (const r of list) {
     const card = document.createElement("article");
     card.className =
-      "rounded-lg border p-4 bg-white dark:bg-slate-800 shadow-sm";
+      "rounded-lg border p-4 bg-white dark:bg-slate-800 shadow-sm h-full flex flex-col";
+
+    const tagsHtml =
+      r._curated && r._curated.tags
+        ? r._curated.tags
+            .map(
+              (t) =>
+                `<span class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-700">${t}</span>`
+            )
+            .join("")
+        : r.language
+        ? `<span class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-700">${r.language}</span>`
+        : "";
+
     card.innerHTML = `
-      <div class="text-right flex-shrink-0 flex flex-col justify-between h-full">
-        <div>
-          <h3 class="font-semibold text-lg"><a href="#" data-repo="${
+      <div class="flex-1">
+        <h3 class="font-semibold text-lg">
+          <a href="#" data-repo="${
             r.full_name
-          }" class="project-link">${r.name}</a></h3>
-          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300 card-clamp">${
-            r.description || (r._curated && r._curated.short) || "—"
-          }</p>
-          <div class="mt-3 flex flex-wrap gap-2 text-xs">${
-            r._curated && r._curated.tags
-              ? r._curated.tags
-                  .map(
-                    (t) =>
-                      `<span class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-700">${t}</span>`
-                  )
-                  .join("")
-              : r.language
-              ? `<span class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-700">${r.language}</span>`
-              : ""
-          }</div>
+          }" class="project-link hover:underline">${r.name}</a>
+        </h3>
+        <p class="mt-1 text-sm text-slate-600 dark:text-slate-300 card-clamp">${
+          r.description || (r._curated && r._curated.short) || "—"
+        }</p>
+        <div class="mt-3 flex flex-wrap gap-2 text-xs">${tagsHtml}</div>
+      </div>
+      <div class="mt-4 flex items-center justify-between">
+        <div class="text-sm text-slate-500 dark:text-slate-400">
+          ★ ${r.stargazers_count || 0}
         </div>
-        <div class="text-right flex-shrink-0 flex flex-col justify-between h-full">
-          <div class="text-sm text-slate-500 dark:text-slate-400">
-            ★ ${r.stargazers_count || 0}
-          </div>
-          <div class="flex flex-col gap-2">
-            <a class="inline-block text-xs px-2 py-1 rounded-md border" href="${
-              r.homepage || r.html_url
-            }" target="_blank">Open</a>
-            <a class="inline-block text-xs px-2 py-1 rounded-md border" href="${
-              r.html_url
-            }" target="_blank">Repo</a>
-          </div>
+        <div class="flex gap-2">
+          <a class="inline-block text-xs px-2 py-1 rounded-md border" href="${
+            r.homepage || r.html_url
+          }" target="_blank">Open</a>
+          <a class="inline-block text-xs px-2 py-1 rounded-md border" href="${
+            r.html_url
+          }" target="_blank">Repo</a>
         </div>
       </div>
     `;
